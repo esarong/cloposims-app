@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->TransactionID();
-            $table->UserID();
-            $table->string(column:'CustomerName');
-            $table->date(column:'TransactionDate');
-            $table->double(column:'TransactionAmount');
-            $table->string(column:'TransactionType');
-            $table->double(column:'TransactionTaxAmount');
+            $table->id('transaction_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->string('customer_name');
+            $table->double('transaction_amount');
+            $table->string('transaction_type');
+            $table->double('transaction_tax_amount');
+
+            
             $table->timestamps();
         });
     }

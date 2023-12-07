@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory_categories', function (Blueprint $table) {
-            $table->CategoryID();
-            $table->string(column:'CategoryName');
-            $table->text(column:'Description');
+            $table->id('category_id');
+            $table->string('category_name');
+            $table->text('description');
             $table->timestamps();
         });
     }

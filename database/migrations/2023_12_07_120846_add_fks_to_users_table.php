@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_units', function (Blueprint $table) {
-            $table->id('unit_id');
-            $table->string('unit');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('user_status')->references('user_status_id')->on('user_statuses')->onDelete('set null');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory_units');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };
