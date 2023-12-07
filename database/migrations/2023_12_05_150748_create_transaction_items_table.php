@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaction_items', function (Blueprint $table) {
-            $table->id();
+            $table->TransactionItemID();
+            $table->TransactionID();
+            $table->ProductID();
+            $table->int(column:'Quantity');
             $table->timestamps();
         });
     }
