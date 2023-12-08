@@ -1,5 +1,14 @@
 <?php
 
+use App\Http\Controllers\InventoryCategoryController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InventoryUnitController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionItemController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserStatusController;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,18 +27,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource(name:'/users', controller:UserController::class);
+  Route::apiResource(name:'/users', controller:UserController::class);
 
-Route::apiResource(name:'/userstatuses', controller:UserStatusController::class);
+  Route::apiResource(name:'/userstatuses', controller:UserStatusController::class);
 
-Route::apiResource(name:'/transactions', controller:TransactionController::class);
+  Route::apiResource(name:'/transactions', controller:TransactionController::class);
 
-Route::apiResource(name:'/transaction_items', controller:TransactionItemController::class);
+  Route::apiResource(name:'transaction_items', controller:TransactionItemController::class);
 
-Route::apiResource(name:'/inventory', controller:InventoryController::class);
+  Route::apiResource(name:'/inventory', controller:InventoryController::class);
 
-Route::apiResource(name:'/inventory_category', controller:InventoryCategoryController::class);
+  Route::apiResource(name:'/inventory_category', controller:InventoryCategoryController::class);
 
-Route::apiResource(name:'/inventory_unit', controller:InventoryUnitController::class);
+  Route::apiResource(name:'/inventory_unit', controller:InventoryUnitController::class);
 
-Route::apiResource(name:'/supplier', controller:SupplierController::class);
+  Route::apiResource(name:'/supplier', controller:SupplierController::class);
