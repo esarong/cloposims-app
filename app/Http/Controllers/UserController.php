@@ -6,6 +6,8 @@ use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -19,12 +21,18 @@ class UserController extends Controller
           //$users = User::all();
         
           //return view(view: 'users.index')->with('users', $users);
-
-
-        
+         
           //return UserResource::collection(User::all());
-          return new UserCollection(User::all());
+          
+          
+          //return new UserCollection(User::all());
+          
+          //the line above is the previous one used
 
+
+          return response()->json(new UserCollection(User::all()),
+    status:response::HTTP_OK); //new suggestion of linkedin video 
+        
     }
 
     /**
@@ -40,7 +48,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return new UserResource($user);
     }
 
     /**
@@ -48,7 +56,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->update($request->only([
+            'user_id', 'user_status_id', 'username', 'first_name', 'last_name', 'role', 'password'
+       ]));
+       
+       return new UserResource($user);
     }
 
     /**
@@ -56,6 +68,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response()->json(data:null, status:Response::HTTP_NO_CONTENT);
     }
 }

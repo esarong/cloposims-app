@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserStatusCollection;
+use App\Http\Resources\UserStatusResource;
 use App\Models\UserStatus;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,7 @@ class UserStatusController extends Controller
      */
     public function show(UserStatus $userStatus)
     {
-        //
+        return new UserStatusResource($userStatus);
     }
 
     /**

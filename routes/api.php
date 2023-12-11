@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
   Route::apiResource(name:'/transactions', controller:TransactionController::class);
 
-  Route::apiResource(name:'transaction_items', controller:TransactionItemController::class);
+  Route::apiResource(name:'/transaction_items', controller:TransactionItemController::class);
 
   Route::apiResource(name:'/inventory', controller:InventoryController::class);
 
