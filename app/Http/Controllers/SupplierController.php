@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SupplierCollection;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        return new SupplierCollection(Supplier::all());
     }
 
     /**

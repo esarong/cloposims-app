@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TransactionCollection;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        return new TransactionCollection(Transaction::all());
     }
 
     /**

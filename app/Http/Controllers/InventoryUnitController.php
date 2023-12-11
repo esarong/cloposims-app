@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InventoryUnitCollection;
 use App\Models\InventoryUnit;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class InventoryUnitController extends Controller
      */
     public function index()
     {
-        //
+        return new InventoryUnitCollection(InventoryUnit::all());
     }
 
     /**

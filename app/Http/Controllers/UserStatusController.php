@@ -14,7 +14,6 @@ class UserStatusController extends Controller
      */
     public function index()
     {
-        //
         return new UserStatusCollection(UserStatus::all());
     }
 
