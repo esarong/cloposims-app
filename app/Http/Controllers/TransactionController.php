@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TransactionCollection;
+use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TransactionController extends Controller
 {
@@ -21,7 +23,11 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $transaction = Transaction::create($request->only([
+            'CustomerName', 'TransactionDate', 'TransactionAmount', 'TransactionType', 'TransactionTaxAmount', 
+       ]));
+   
+       return new TransactionResource($transaction);
     }
 
     /**
@@ -29,7 +35,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        return new TransactionResource($transaction);
     }
 
     /**
@@ -37,7 +43,11 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $transaction->update($request->only([
+            'CustomerName', 'TransactionDate', 'TransactionAmount', 'TransactionType', 'TransactionTaxAmount', 
+       ]));
+       
+       return new TransactionResource($transaction);
     }
 
     /**
@@ -45,6 +55,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+
+        return response()->json(data:null, status:Response::HTTP_NO_CONTENT);
     }
 }

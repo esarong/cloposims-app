@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
             $table->string('customer_name');
+            $table->date('transaction_date');
             $table->double('transaction_amount');
             $table->string('transaction_type');
             $table->double('transaction_tax_amount');
