@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\SupplierCollection;
+use App\Http\Resources\SupplierResource;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class SupplierController extends Controller
 {
@@ -13,7 +15,12 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return new SupplierCollection(Supplier::all());
+        //return new SupplierCollection(Supplier::all());
+
+        return response()->json(new SupplierCollection(Supplier::all()),
+    status:Response::HTTP_OK);
+
+
     }
 
     /**
@@ -29,7 +36,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
+        return new SupplierResource($supplier);
     }
 
     /**
@@ -45,6 +52,8 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        $supplier->delete();
+
+        return response()->json(data:null, status:Response::HTTP_NO_CONTENT);
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserStatusCollection;
 use App\Http\Resources\UserStatusResource;
 use App\Models\UserStatus;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserStatusController extends Controller
 {
@@ -15,7 +17,11 @@ class UserStatusController extends Controller
      */
     public function index()
     {
-        return new UserStatusCollection(UserStatus::all());
+        //return new UserStatusCollection(UserStatus::all());
+
+        return response()->json(new UserStatusCollection(UserStatus::all()),
+    status:Response::HTTP_OK);
+
     }
 
     /**
@@ -23,7 +29,11 @@ class UserStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userstatus = UserStatus::create($request->only([
+            'username', 'first_name', 'last_name', 'address', 'role', 'email', 
+       ]));
+   
+       return new UserStatusResource($userstatus);
     }
 
     /**
@@ -47,6 +57,8 @@ class UserStatusController extends Controller
      */
     public function destroy(UserStatus $userStatus)
     {
-        //
+        $userStatus->delete();
+
+        return response()->json(data:null, status:Response::HTTP_NO_CONTENT);
     }
 }

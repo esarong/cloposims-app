@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\InventoryCategoryCollection;
+use App\Http\Resources\InventoryCategoryResource;
 use App\Models\InventoryCategory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class InventoryCategoryController extends Controller
 {
@@ -13,7 +15,10 @@ class InventoryCategoryController extends Controller
      */
     public function index()
     {
-        return new InventoryCategoryCollection(InventoryCategory::all());
+        //return new InventoryCategoryCollection(InventoryCategory::all());
+
+        return response()->json(new InventoryCategoryCollection(InventoryCategory::all()),
+    status:Response::HTTP_OK);
     }
 
     /**
@@ -21,7 +26,11 @@ class InventoryCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inventoryCategory = InventoryCategory::create($request->only([
+            'category_name','description'  
+        ]));
+    
+        return new InventoryCategoryResource($inventoryCategory);
     }
 
     /**
@@ -29,7 +38,7 @@ class InventoryCategoryController extends Controller
      */
     public function show(InventoryCategory $inventoryCategory)
     {
-        //
+        return new InventoryCategoryResource($inventoryCategory);
     }
 
     /**
@@ -37,7 +46,11 @@ class InventoryCategoryController extends Controller
      */
     public function update(Request $request, InventoryCategory $inventoryCategory)
     {
-        //
+        $inventoryCategory->update($request->only([
+            'category_name','description' 
+        ]));
+      
+      return new InventoryCategoryResource($inventoryCategory);
     }
 
     /**
@@ -45,6 +58,8 @@ class InventoryCategoryController extends Controller
      */
     public function destroy(InventoryCategory $inventoryCategory)
     {
-        //
+        $inventoryCategory->delete();
+
+        return response()->json(data:null, status:Response::HTTP_NO_CONTENT);
     }
 }

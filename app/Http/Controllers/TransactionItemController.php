@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TransactionItemCollection;
+use App\Http\Resources\TransactionItemResource;
 use App\Models\TransactionItem;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TransactionItemController extends Controller
 {
@@ -13,7 +15,10 @@ class TransactionItemController extends Controller
      */
     public function index()
     {
-        return new TransactionItemCollection(TransactionItem::all());
+        //return new TransactionItemCollection(TransactionItem::all());
+
+        return response()->json(new TransactionItemCollection(TransactionItem::all()),
+    status:Response::HTTP_OK);
     }
 
     /**
@@ -29,7 +34,7 @@ class TransactionItemController extends Controller
      */
     public function show(TransactionItem $transactionItem)
     {
-        //
+        return new TransactionItemResource($transactionItem);
     }
 
     /**
@@ -45,6 +50,8 @@ class TransactionItemController extends Controller
      */
     public function destroy(TransactionItem $transactionItem)
     {
-        //
+        $transactionItem->delete();
+
+        return response()->json(data:null, status:Response::HTTP_NO_CONTENT);
     }
 }

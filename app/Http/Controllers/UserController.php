@@ -42,7 +42,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = User::create($request->only([
-             'username', 'first_name', 'last_name', 'address', 'role', 'email', 
+            'user_status_id','username', 'first_name', 'last_name', 'address', 'role', 'email', 
         ]));
     
         return new UserResource($user);
@@ -64,7 +64,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update($request->only([
-            'user_id', 'user_status_id', 'username', 'first_name', 'last_name', 'role', 'password'
+             'user_status_id', 'username', 'first_name', 'last_name', 'address', 'role', 'email',
        ]));
        
        return new UserResource($user);

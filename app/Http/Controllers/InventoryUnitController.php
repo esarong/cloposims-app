@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\InventoryUnitCollection;
+use App\Http\Resources\InventoryUnitResource;
 use App\Models\InventoryUnit;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class InventoryUnitController extends Controller
 {
@@ -13,7 +15,11 @@ class InventoryUnitController extends Controller
      */
     public function index()
     {
-        return new InventoryUnitCollection(InventoryUnit::all());
+        //return new InventoryUnitCollection(InventoryUnit::all());
+
+        return response()->json(new InventoryUnitCollection(InventoryUnit::all()),
+    status:Response::HTTP_OK);
+
     }
 
     /**
@@ -29,7 +35,7 @@ class InventoryUnitController extends Controller
      */
     public function show(InventoryUnit $inventoryUnit)
     {
-        //
+        return new InventoryUnitResource($inventoryUnit);
     }
 
     /**
@@ -45,6 +51,8 @@ class InventoryUnitController extends Controller
      */
     public function destroy(InventoryUnit $inventoryUnit)
     {
-        //
+        $inventoryUnit->delete();
+
+        return response()->json(data:null, status:Response::HTTP_NO_CONTENT);
     }
 }
